@@ -71,6 +71,7 @@
             // 
             // btnGravar
             // 
+            this.btnGravar.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnGravar.Location = new System.Drawing.Point(317, 121);
             this.btnGravar.Name = "btnGravar";
             this.btnGravar.Size = new System.Drawing.Size(75, 36);
@@ -81,6 +82,7 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancelar.Location = new System.Drawing.Point(398, 121);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 36);
@@ -103,7 +105,7 @@
             this.MinimizeBox = false;
             this.Name = "TelaCadastroDisciplinaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tela de Cadastro de Disciplina";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.TelaCadastroDisciplinaForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

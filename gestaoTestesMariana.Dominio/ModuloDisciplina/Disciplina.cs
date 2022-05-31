@@ -12,7 +12,7 @@ namespace gestaoTestesMariana.Dominio.ModuloDisciplina
     {
         public string Nome { get; set; }
 
-        public List<Materia> materias { get; set; }
+        public List<Materia> Materias { get; set; }
 
         
 

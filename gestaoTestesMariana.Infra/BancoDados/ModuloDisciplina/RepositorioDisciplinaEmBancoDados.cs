@@ -21,19 +21,19 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloDisciplina
         private const string sqlInserir =
         @"INSERT INTO [TBDISCIPLINA]
                 (
-                    [NOME]                 
+                    [NOME_DISCIPLINA]                 
                 )
             VALUES
                 (
-                    @NOME,
+                    @NOME_DISCIPLINA
 
                 ); 
-        SELECT SCOPE_IDENTITY();";
+                SELECT SCOPE_IDENTITY();";
 
         private const string sqlEditar =
         @"UPDATE [TBDISCIPLINA]
                 SET
-                    [NOME]  = @NOME;                
+                    [NOME_DISCIPLINA]  = @NOME;                
 
                  WHERE [NUMERO] = @NUMERO";
 
@@ -44,7 +44,7 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloDisciplina
         private const string sqlSelecionarTodos =
         @"SELECT 
 		            [NUMERO], 
-		            [NOME] 
+		            [NOME_DISCIPLINA] 
 
 	            FROM 
 		            [TBDISCIPLINA]";
@@ -52,7 +52,7 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloDisciplina
         private const string sqlSelecionarPorNumero =
         @"SELECT 
 		            [NUMERO], 
-		            [NOME] 
+		            [NOME_DISCIPLINA] 
 
 	            FROM 
 		            [TBDISCIPLINA]
@@ -177,7 +177,7 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloDisciplina
         private static Disciplina ConverterParaDisciplina(SqlDataReader leitorContato)
         {
             int numero = Convert.ToInt32(leitorContato["NUMERO"]);
-            string nome = Convert.ToString(leitorContato["NOME"]);
+            string nome = Convert.ToString(leitorContato["NOME_DISCIPLINA"]);
 
             var disciplina = new Disciplina
             {
@@ -191,7 +191,7 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloDisciplina
         private static void ConfigurarParametrosDisciplina(Disciplina novaDisciplina, SqlCommand comando)
         {
             comando.Parameters.AddWithValue("NUMERO", novaDisciplina.Numero);
-            comando.Parameters.AddWithValue("NOME", novaDisciplina.Nome);
+            comando.Parameters.AddWithValue("NOME_DISCIPLINA", novaDisciplina.Nome);
         }
     }
 }

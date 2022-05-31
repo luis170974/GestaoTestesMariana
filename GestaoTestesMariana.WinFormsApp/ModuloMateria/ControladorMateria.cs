@@ -26,8 +26,11 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
 
         public override void Inserir()
         {
-            TelaCadastroMateriaForm tela = new TelaCadastroMateriaForm();
+            TelaCadastroMateriaForm tela = new TelaCadastroMateriaForm(repositorioDisciplina);
+
             tela.Materia = new Materia();
+
+            tela.Materia.Disciplina = new Disciplina();
 
             tela.GravarRegistro = repositorioMateria.Inserir;
 
@@ -52,7 +55,7 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
                 return;
             }
 
-            TelaCadastroMateriaForm tela = new TelaCadastroMateriaForm();
+            TelaCadastroMateriaForm tela = new TelaCadastroMateriaForm(repositorioDisciplina);
 
             tela.Materia = materiaSelecionada;
 

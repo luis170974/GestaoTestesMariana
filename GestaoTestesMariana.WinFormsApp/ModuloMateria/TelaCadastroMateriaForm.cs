@@ -16,14 +16,20 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
 {
     public partial class TelaCadastroMateriaForm : Form
     {
-        public TelaCadastroMateriaForm()
+        IRepositorioDisciplina repositorioDisciplina;
+
+        public TelaCadastroMateriaForm(IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
+            this.repositorioDisciplina = repositorioDisciplina;
+            CarregarDisciplinasComboBox();
+            
+
         }
 
         private Materia materia;
 
-        private Disciplina disciplina;
+        public List<Disciplina> disciplinas;
 
         public Func<Materia, ValidationResult> GravarRegistro { get; set; }
 
@@ -39,7 +45,7 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
             {
                 materia = value;
                 txtNumero.Text = materia.Numero.ToString();
-                cmbDisciplina.Text = disciplina.Nome;
+                cmbDisciplina.Text = "Selecione";
                 txtMateria.Text = materia.Nome;
 
 
@@ -49,7 +55,8 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            disciplina.Nome = cmbDisciplina.Text;
+            materia.Disciplina.Nome = cmbDisciplina.Text;
+
             materia.Nome = txtMateria.Text;
 
             var resultadoValidacao = GravarRegistro(materia);
@@ -77,6 +84,19 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloMateria
         private void btnCancelar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CarregarDisciplinasComboBox()
+        {
+
+            cmbDisciplina.Items.Clear();
+
+            List<Disciplina> disc = repositorioDisciplina.SelecionarTodos();
+
+            foreach (Disciplina d in disc)
+            {
+                cmbDisciplina.Items.Add(d.Nome);
+            }
         }
     }
 }

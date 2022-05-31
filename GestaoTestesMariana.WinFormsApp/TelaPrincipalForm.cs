@@ -150,7 +150,7 @@ namespace GestaoTestesMariana.WinFormsApp
             controladores = new Dictionary<string, ControladorBase>();
 
             controladores.Add("Disciplinas", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
-            controladores.Add("Matérias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
+            controladores.Add("Materias", new ControladorMateria(repositorioMateria, repositorioDisciplina));
             controladores.Add("Questões", new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina));
             controladores.Add("Testes", new ControladorTeste(repositorioTeste, repositorioQuestao, repositorioMateria, repositorioDisciplina));
         }

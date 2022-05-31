@@ -20,51 +20,61 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloMateria
         "Pooling=False";
 
         private const string sqlInserir =
-        @"INSERT INTO [TBMATERIA]
+        @"INSERT INTO [TBMATERIA] 
                 (
-                    [NOME]   
-                    [DISCIPLINA]
+                    [NOME_MATERIA],   
+                    [DISCIPLINA_NUMERO]
                 )
             VALUES
                 (
-                    @NOME,
-                    @DISCIPLINA
+                    @NOME_MATERIA,
+                    @DISCIPLINA_NUMERO
                 ); 
         SELECT SCOPE_IDENTITY();";
 
         private const string sqlEditar =
-        @"UPDATE [TBMATERIA]
+        @"UPDATE TBMATERIA
                 SET
-                    [NOME]  = @NOME;  
+                    [NOME_MATERIA]  = @NOME_MATERIA,
+                    [DISCIPLINA_NUMERO] = @DISCIPLINA_NUMERO
                     
 
-                 WHERE [NUMERO] = @NUMERO";
+                 WHERE 
+                    [NUMERO] = @NUMERO";
 
         private const string sqlExcluir =
-        @"DELETE FROM [TBMATERIA]
-                 WHERE [NUMERO] = @NUMERO";
+        @"DELETE FROM TBMATERIA
+                 WHERE NUMERO = @NUMERO";
 
         private const string sqlSelecionarTodos =
         @"SELECT 
-		            [NUMERO], 
-		            [NOME], 
+		            MAT.NUMERO, 
+		            MAT.NOME_MATERIA,
+                    MAT.DISCIPLINA_NUMERO
 
-	            FROM 
-		            [TBMATERIA] AS CM LEFT JOIN
-                    [TBDISCIPLINA] AS CD
+
+	            FROM
+
+		            [TBMATERIA] AS MAT 
+                    INNER JOIN
+                    [TBDISCIPLINA] AS DISC
 
                 ON 
-                    CD.NUMERO = CM.NUMERO";
+                     MAT.DISCIPLINA_NUMERO = DISC.NUMERO";
 
         private const string sqlSelecionarPorNumero =
         @"SELECT 
-		            [NUMERO], 
-		            [NOME] 
+		            MAT.NUMERO, 
+		            MAT.NOME_MATERIA, 
+                    MAT.DISCIPLINA_NUMERO
+
+                    
 
 	            FROM 
-		            [TBMATERIA]
+		            [TBMATERIA] AS MAT
+
 		        WHERE
-                    [NUMERO] = @NUMERO";
+                    MAT.NUMERO = @NUMERO";
 
 
         public ValidationResult Inserir(Materia novoRegistro)
@@ -188,20 +198,18 @@ namespace gestaoTestesMariana.Infra.BancoDados.ModuloMateria
 
         private void ConfigurarParametrosMateria(Materia novoRegistro, SqlCommand comando)
         {
-            comando.Parameters.AddWithValue("NUMERO", novoRegistro.Numero);
-            comando.Parameters.AddWithValue("NOME", novoRegistro.Nome);
-            comando.Parameters.AddWithValue("DISCIPLINA_NUMERO", novoRegistro.Disciplina == null ? DBNull.Value : novoRegistro.Disciplina.Numero);
+            comando.Parameters.AddWithValue("NOME_MATERIA", novoRegistro.Nome);
+            comando.Parameters.AddWithValue("DISCIPLINA_NUMERO", novoRegistro.Disciplina.Numero);
         }
 
         private Materia ConverterParaMateria(SqlDataReader leitorMateria)
         {
-            int numero = Convert.ToInt32(leitorMateria["NUMERO"]);
-            string nome = Convert.ToString(leitorMateria["NOME"]);
+            string nome = Convert.ToString(leitorMateria["NOME_MATERIA"]);
             int disciplinaNumero = Convert.ToInt32(leitorMateria["DISCIPLINA_NUMERO"]);
 
             Materia materia = new Materia();
 
-            materia.Numero = numero;
+
             materia.Nome = nome;    
         
           if(leitorMateria["DISCIPLINA_NUMERO"] != DBNull.Value)

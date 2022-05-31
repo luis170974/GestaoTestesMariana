@@ -29,6 +29,7 @@ namespace gestaoTestesMariana.WinFormsApp.ModuloDisciplina
             get { return disciplina; }
             set
             {
+
                 disciplina = value;
                 txtNumero.Text = disciplina.Numero.ToString();
                 txtDisciplina.Text = disciplina.Nome;
